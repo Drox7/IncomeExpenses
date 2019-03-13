@@ -64,7 +64,7 @@ function addTask(e) {
     let req = store.add(Task);
     req.onsuccess = (event) => {
         alert('New task was added');
-        window.location.replace('001_indexedDB.html');
+        window.location.replace('indexedDB.html');
     };
     req.onerror = (event) => {
         alert('There is a problem with adding a new task');
