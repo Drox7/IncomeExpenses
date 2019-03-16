@@ -104,7 +104,7 @@ function showTasks(event) {
 //Удаление всех пользователей
 function deleteTasks() {
     indexedDB.deleteDatabase('TaskManager');
-    window.location.replace('./001_indexedDB.html');
+    window.location.replace('./indexedDB.html');
 }
 //Удаление одного пользователя
 function deleteTask(id) {
