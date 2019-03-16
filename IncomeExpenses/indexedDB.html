@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>IndexedDB app</title>
+    <title>Доходы Расходы</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -22,9 +22,9 @@
               Действия
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-              <a class="dropdown-item" href="./indexedDB.html">Tasks list</a>
-              <a class="dropdown-item" href="./add.html"> Add task</a>
-              <a class="dropdown-item" onclick="deleteTasks()" href="#"> Delete all</a>
+              <a class="dropdown-item" href="./indexedDB.html">Список расходов</a>
+              <a class="dropdown-item" href="./add.html"> Добавить расход</a>
+              <a class="dropdown-item" onclick="deleteTasks()" href="#"> Удалить все</a>
             </div>
           </div>
     </nav>
@@ -35,34 +35,33 @@
                     <ul class="nav flex-column">
                         <li class="nav-item">
                             <a class="nav-link active" href="./indexedDB.html">
-                                <span></span> Tasks list
+                                <span></span> Список расходов
                             </a>
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link " href="./add.html">
-                                <span></span> Add task
+                                <span></span> Добавить расход
                             </a>
                         </li>
                         <li class="nav-item" onclick="deleteTasks()">
                             <a class="nav-link text-danger" href="#">
-                                <span></span> Delete all
+                                <span></span> Удалить все
                             </a>
                         </li>
                     </ul>
                 </div>
             </nav>
             <main role="main" class="col-md-9  ml-sm-auto col-lg-10 px-4">
-                <h2 class='m-3'>Tasks list</h2>
+                <h2 class='m-3'>Список расходов</h2>
                 <div class="table-responsive">
                     <table class="table table-striped table-sm">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Task</th>
-                                <th>Person</th>
-                                <th>E-mail</th>
-                                <th>Due date</th>
-                                <th>Customer</th>
+                                <th>Дата</th>
+                                <th>Сумма</th>
+                                <th>Комментарий</th>
+                                <th>Категория расходов</th>  
                                 <th></th>
                             </tr>
                         </thead>

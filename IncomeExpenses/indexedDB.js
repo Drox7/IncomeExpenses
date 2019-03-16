@@ -23,8 +23,9 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 var ObjectStore2 = DB.createObjectStore('Customers', { keyPath: 'id', autoIncrement: true });
                 // Индекса -  позволяет искать значения, хранящиеся в хранилище объектов, с использованием значения свойства хранимого объекта, а не ключа объекта.
                 // Индексы принимают ограничения: Установив уникальный флаг при создании индекса, индекс гарантирует, что два объекта не будут сохранены с одинаковым значением для пути ключа индекса.             
-                ObjectStore.createIndex('IndexByTask', 'task', { unique: true });
-                ObjectStore.createIndex('IndexByEmail', 'email', { unique: false });
+                ObjectStore.createIndex('IndexById', 'id', { unique: true });
+                ObjectStore.createIndex('IndexBySum', 'sum', { unique: false });
+                ObjectStore.createIndex('IndexByCat', 'CatExpenses', { unique: false });
             }
         }
         // callback функции на обработку ошибок/успеха
@@ -43,27 +44,28 @@ document.addEventListener('DOMContentLoaded', (e) => {
 });
 // Функция добавления задач
 function addTask(e) {
-    let task = $('#task').val();
-    let person = $('#person').val();
-    let email = $('#email').val();
+    //let id = Math.random();
     let date = $('#date').val();
-    let customer = $('#Customer').val();
+    let sum = $('#Sum').val();
+    let comment = $('#Comment').val();
+    let CatExpenses = $('#CatExpenses').val();
+    
     // создание новой транзакции обращение к объекту хранилища
     let transaction = db.transaction(['Tasks'], 'readwrite'); //readonly - для чтения
     // Обращение к таблице
     let store = transaction.objectStore('Tasks');
     // Создание задачи
     let Task = {
-        task: task,
-        person: person,
-        email: email,
+     //   id: id,
         date: date,
-        customer: customer,
+        sum: sum,
+        comment: comment,
+        CatExpenses: CatExpenses
     };
     // Обращение на добавление
     let req = store.add(Task);
     req.onsuccess = (event) => {
-        alert('New task was added');
+        // alert('New task was added');
         window.location.replace('indexedDB.html');
     };
     req.onerror = (event) => {
@@ -78,7 +80,7 @@ function showTasks(event) {
     let transaction = db.transaction(['Tasks'], 'readonly');
     let store = transaction.objectStore('Tasks');
     // Обращение к существующему объекту в БД
-    let index = store.index('IndexByTask');
+    let index = store.index('IndexById');
     let output = '';
     // Создание особой метки для определения элементов внутри БД по заданному индексу
     // Курсор выбирает каждый объект в хранилище объектов или индексирует один за другим, позволяя вам что-то делать с выбранными данными.
@@ -87,11 +89,11 @@ function showTasks(event) {
         if (cursor) {
             output += `<tr class='task_${cursor.value.id}'>`;
             output += `<td><span>${cursor.value.id}</span></td>`;
-            output += `<td><span>${cursor.value.task}</span></td>`;
-            output += `<td><span class='cursor task' contenteditable='true' data-field='person' data-id='${cursor.value.id}'>${cursor.value.person}</span></td>`;
-            output += `<td><span class='cursor task' contenteditable='true' data-field='email' data-id='${cursor.value.id}'>${cursor.value.email}</span></td>`;
+            // output += `<td><span>${cursor.value.date}</span></td>`;
             output += `<td><span class='cursor task' contenteditable='true' data-field='date' data-id='${cursor.value.id}'>${cursor.value.date}</span></td>`;
-            output += `<td><span class='cursor task' contenteditable='true' data-field='date' data-id='${cursor.value.id}'>${cursor.value.customer}</span></td>`;
+            output += `<td><span class='cursor task' contenteditable='true' data-field='sum' data-id='${cursor.value.id}'>${cursor.value.sum}</span></td>`;
+            output += `<td><span class='cursor task' contenteditable='true' data-field='comment' data-id='${cursor.value.id}'>${cursor.value.comment}</span></td>`;
+            output += `<td><span class='cursor task' contenteditable='true' data-field='CatExpenses' data-id='${cursor.value.id}'>${cursor.value.CatExpenses}</span></td>`;
             output += `<td><a onclick="deleteTask(${cursor.value.id})" class="btn btn-danger" href=''>Delete</a></td>`;
             output += '</tr>';
             // Продолжить до тех пор пока не закончится преебор всех элементов
@@ -134,20 +136,20 @@ $('#tasks').on('blur', ".task", function() {
     let req = store.get(TaskID);
     req.onsuccess = (e) => {
         let data = req.result;
-        if (Field === 'person') {
-            data.person = newText;
-        } else if (Field === 'email') {
-            data.email = newText
+        if (Field === 'sum') {
+            data.sum = newText;
+        } else if (Field === 'comment') {
+            data.comment = newText
         } else if (Field === 'date') {
             data.date = newText
         }
         console.log(data);
         let reqUpdate = store.put(data);
         reqUpdate.onsuccess = () => {
-            console.log('Task field updated!');
+            console.log('field updated!');
         }
         reqUpdate.onerror = () => {
-            console.log('Task field not updated!');
+            console.log('field not updated!');
         }
     }
     req.onerror = (e) => {
