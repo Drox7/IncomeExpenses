@@ -3,7 +3,13 @@
 // 3. Начало транзакции и обращение запросов 
 // 4. Ожидание завершения операции и прослушивание DOM событий
 // 5. Преобразование результатов
-
+var GetDate = () => {
+    Data = new Date();
+    Year = Data.getFullYear();
+    Month = Data.getMonth();
+    Day = Data.getDate();
+    return `${Day}-${Month}-${Year}` ;
+}
 
 document.addEventListener('DOMContentLoaded', (e) => {
 
