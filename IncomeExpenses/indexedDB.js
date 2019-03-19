@@ -100,7 +100,7 @@ function showTasks(event) {
             output += `<td><span class='cursor task' contenteditable='true' data-field='sum' data-id='${cursor.value.id}'>${cursor.value.sum}</span></td>`;
             output += `<td><span class='cursor task' contenteditable='true' data-field='comment' data-id='${cursor.value.id}'>${cursor.value.comment}</span></td>`;
             output += `<td><span class='cursor task' contenteditable='true' data-field='CatExpenses' data-id='${cursor.value.id}'>${cursor.value.CatExpenses}</span></td>`;
-            output += `<td><a onclick="deleteTask(${cursor.value.id})" class="btn btn-danger" href=''>Delete</a></td>`;
+            output += `<td><a onclick="deleteTask(${cursor.value.id})" class="btn btn-danger btn-sm" href=''>Delete</a></td>`;
             output += '</tr>';
             // Продолжить до тех пор пока не закончится преебор всех элементов
             cursor.continue();
